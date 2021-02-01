@@ -1,20 +1,31 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { eatSushi } from "../redux/sushi";
 
-function Sushi(props) {
+function Sushi({ sushi }) {
+
+  const dispatch = useDispatch()
+
+  function handleClick() {
+    const action = eatSushi(sushi)
+
+    dispatch(action)
+  }
+  
   return (
     <div className="sushi">
-      <div className="plate" onClick={/* Give me a callback! */ null}>
-        {/* Tell me if this sushi has been eaten! */}
-        {false ? null : (
+      <div className="plate" onClick={handleClick}>
+        
+        {sushi.isEaten ? null : (
           <img
-            src={/* Give me an image source! */ null}
-            alt={/* Give me a name! */ "Sushi"}
+            src={sushi.img_url}
+            alt={sushi.name}
             width="100%"
           />
         )}
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {sushi.name} - ${sushi.price}
       </h4>
     </div>
   );
